@@ -4,20 +4,41 @@ import Card from "./Card";
 
 const Allcontacts = () => {
   const [list, setList] = useState([]);
+  const [search, setSearch] = useState("");
 
-  const fetchData = async () => {
-    const names = await axios.get("https://scizers-backend.vercel.app/api");
-    setList(names.data);
+  const fetchData = async (name) => {
+    if (name.length == 0) {
+      const names = await axios.get("https://scizers-backend.vercel.app/api");
+      setList(names.data);
+    } else {
+      const names = await axios.get(
+        `https://scizers-backend.vercel.app/api/${name}`
+      );
+      setList(names.data);
+    }
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData("");
   }, []);
+
+  const changeSearch = (event) => {
+    setSearch(event.target.value);
+    fetchData(search);
+  };
 
   return (
     <>
       <div className="list-section">
-        <h1 className="main-heading">All the contacts</h1>
+        <div class="textInputWrapper">
+          <input
+            placeholder="Type Here"
+            type="text"
+            class="textInput"
+            value={search}
+            onChange={changeSearch}
+          />
+        </div>
         {list.map((item) => {
           return (
             <Card
