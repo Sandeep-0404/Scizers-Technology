@@ -125,6 +125,7 @@ body {
   color: white;
   flex: 2;
   overflow-y: scroll;
+
 }
 
 .main-heading {
@@ -139,6 +140,7 @@ body {
   margin: 1rem;
   border-radius: 25px;
   padding: 0.2rem 5rem;
+  cursor: pointer;
 }
 
 .main-card {
